@@ -4,6 +4,7 @@ import FeaturedCategories from '@/components/home/FeaturedCategories.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import InstagramSection from '@/components/home/InstagramSection.vue'
 import NewArrivals from '@/components/home/NewArrivals.vue'
+import NewsletterSection from '@/components/home/NewsletterSection.vue'
 import PromoBanner from '@/components/home/PromoBanner.vue'
 import WhyChooseUs from '@/components/home/WhyChooseUs.vue'
 import NavBar from '@/components/layout/NavBar.vue'
@@ -49,7 +50,10 @@ HomePage.vue
     <!-- Why Choose Us -->
     <WhyChooseUs />
 
-    <!-- Instagram Section -->
+    <!-- Instagram Collection -->
     <InstagramSection />
+
+    <!-- Subscribe To Newsletter -->
+    <NewsletterSection />
   </main>
 </template>
