@@ -9,7 +9,6 @@ import {
   IconMail,
   IconMapPin,
   IconPhone,
-  IconHeartFilled,
 } from '@tabler/icons-vue'
 
 const shopLinks = ['New Arrivals', 'Best Sellers', 'Featured Collections', 'Accessories', 'Shoes']
@@ -37,10 +36,8 @@ const supportLinks = [
         <div class="lg:col-span-5">
           <!-- Logo -->
           <div class="inline-flex items-center gap-3">
-            <div
-              class="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white shadow-lg"
-            >
-              <IconHeartFilled :size="26" />
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-lg">
+              <img src="/images/immaeby-logo.png" alt="" class="w-12 h-12" />
             </div>
 
             <div>

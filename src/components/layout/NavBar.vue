@@ -146,10 +146,8 @@ watch(
       <div class="flex items-center justify-between">
         <!-- LOGO -->
         <RouterLink to="/" class="group flex items-center gap-3">
-          <div
-            class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-white shadow-lg"
-          >
-            <IconShoppingBag :size="26" />
+          <div class="flex h-11 w-11 items-center justify-center rounded bg-white/90 shadow-lg">
+            <img src="/images/immaeby-logo.png" alt="" class="w-9 h-9" />
           </div>
 
           <div class="flex flex-col">
