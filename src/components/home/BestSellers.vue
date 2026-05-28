@@ -18,7 +18,6 @@ const products = [
     image:
       'https://plus.unsplash.com/premium_photo-1664882424563-2c0cd50215a8?q=80&w=1200&auto=format&fit=crop',
   },
-
   {
     id: 2,
     name: 'Classic Luxe Jacket',
@@ -28,7 +27,6 @@ const products = [
     image:
       'https://images.unsplash.com/photo-1634921276069-c24ba5d6b35c?q=80&w=1200&auto=format&fit=crop',
   },
-
   {
     id: 3,
     name: 'Urban Leather Bag',
@@ -38,7 +36,6 @@ const products = [
     image:
       'https://images.unsplash.com/photo-1523779105320-d1cd346ff52b?q=80&w=1200&auto=format&fit=crop',
   },
-
   {
     id: 4,
     name: 'Minimal White Sneakers',

@@ -4,6 +4,7 @@ import FeaturedCategories from '@/components/home/FeaturedCategories.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import NewArrivals from '@/components/home/NewArrivals.vue'
 import PromoBanner from '@/components/home/PromoBanner.vue'
+import WhyChooseUs from '@/components/home/WhyChooseUs.vue'
 import NavBar from '@/components/layout/NavBar.vue'
 
 /*
@@ -43,5 +44,8 @@ HomePage.vue
 
     <!-- Best Sellers -->
     <BestSellers />
+
+    <!-- Why Choose Us -->
+    <WhyChooseUs />
   </main>
 </template>
