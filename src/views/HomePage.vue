@@ -7,6 +7,7 @@ import NewArrivals from '@/components/home/NewArrivals.vue'
 import NewsletterSection from '@/components/home/NewsletterSection.vue'
 import PromoBanner from '@/components/home/PromoBanner.vue'
 import WhyChooseUs from '@/components/home/WhyChooseUs.vue'
+import FooterSection from '@/components/layout/FooterSection.vue'
 import NavBar from '@/components/layout/NavBar.vue'
 
 /*
@@ -55,5 +56,8 @@ HomePage.vue
 
     <!-- Subscribe To Newsletter -->
     <NewsletterSection />
+
+    <!-- Footer -->
+    <FooterSection />
   </main>
 </template>
