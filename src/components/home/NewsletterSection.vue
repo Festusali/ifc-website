@@ -3,7 +3,7 @@ import { IconArrowRight, IconMail, IconSparkles, IconCheck } from '@tabler/icons
 </script>
 
 <template>
-  <section class="relative overflow-hidden bg-soft/10 py-24">
+  <section id="newsletter" class="relative overflow-hidden bg-soft/10 py-24">
     <!-- Background Glow -->
     <div class="absolute top-0 left-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
 

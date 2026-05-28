@@ -40,7 +40,7 @@ const categories = [
 </script>
 
 <template>
-  <section class="relative overflow-hidden bg-white/90 py-24">
+  <section id="featured-categories" class="relative overflow-hidden bg-white/90 py-24">
     <!-- Decorative Blur -->
     <div class="absolute top-0 left-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
 

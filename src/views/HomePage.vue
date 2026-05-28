@@ -29,10 +29,11 @@ HomePage.vue
 </script>
 
 <template>
-  <main>
-    <!-- NavBar -->
-    <NavBar />
+  <!-- NavBar -->
+  <NavBar />
 
+  <!-- Main content -->
+  <main>
     <!-- Hero Section -->
     <HeroSection class="pt-15" />
 
@@ -56,8 +57,8 @@ HomePage.vue
 
     <!-- Subscribe To Newsletter -->
     <NewsletterSection />
-
-    <!-- Footer -->
-    <FooterSection />
   </main>
+
+  <!-- Footer -->
+  <FooterSection />
 </template>

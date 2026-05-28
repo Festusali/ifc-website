@@ -3,7 +3,7 @@ import { IconArrowRight, IconShoppingBag, IconTruck, IconShieldCheck } from '@ta
 </script>
 
 <template>
-  <section class="relative min-h-[92vh] overflow-hidden bg-white/90">
+  <section id="top" class="relative min-h-[92vh] overflow-hidden bg-white/90">
     <!-- BACKGROUND IMAGE -->
     <div class="absolute inset-0">
       <img

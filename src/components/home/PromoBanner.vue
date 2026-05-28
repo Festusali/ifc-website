@@ -3,7 +3,7 @@ import { IconArrowRight, IconDiscount2 } from '@tabler/icons-vue'
 </script>
 
 <template>
-  <section class="relative overflow-hidden py-24">
+  <section id="promo-banner" class="relative overflow-hidden py-24">
     <!-- BACKGROUND IMAGE -->
     <div class="absolute inset-0">
       <img

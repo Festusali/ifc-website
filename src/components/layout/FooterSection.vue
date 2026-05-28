@@ -24,7 +24,7 @@ const supportLinks = [
 </script>
 
 <template>
-  <footer class="relative overflow-hidden bg-secondary pt-24 text-white">
+  <footer id="footer" class="relative overflow-hidden bg-secondary pt-24 text-white">
     <!-- Decorative Glow -->
     <div class="absolute top-0 left-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
 

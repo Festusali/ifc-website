@@ -34,7 +34,7 @@ const features = [
 </script>
 
 <template>
-  <section class="relative overflow-hidden bg-white py-24">
+  <section id="why-choose-us" class="relative overflow-hidden bg-white py-24">
     <!-- Decorative Background -->
     <div class="absolute -top-20 left-0 h-80 w-80 rounded-full bg-primary/8 blur-3xl" />
 

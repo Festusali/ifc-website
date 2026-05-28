@@ -41,7 +41,7 @@ const products = [
 </script>
 
 <template>
-  <section class="relative overflow-hidden bg-soft/10 py-24">
+  <section id="new-arrival" class="relative overflow-hidden bg-soft/10 py-24">
     <!-- Decorative Background -->
     <div class="absolute top-0 right-0 h-96 w-96 rounded-full bg-primary/8 blur-3xl" />
 
