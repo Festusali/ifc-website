@@ -2,6 +2,7 @@
 import BestSellers from '@/components/home/BestSellers.vue'
 import FeaturedCategories from '@/components/home/FeaturedCategories.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
+import InstagramSection from '@/components/home/InstagramSection.vue'
 import NewArrivals from '@/components/home/NewArrivals.vue'
 import PromoBanner from '@/components/home/PromoBanner.vue'
 import WhyChooseUs from '@/components/home/WhyChooseUs.vue'
@@ -47,5 +48,8 @@ HomePage.vue
 
     <!-- Why Choose Us -->
     <WhyChooseUs />
+
+    <!-- Instagram Section -->
+    <InstagramSection />
   </main>
 </template>
