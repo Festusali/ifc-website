@@ -106,7 +106,7 @@ import { IconArrowRight, IconShoppingBag, IconTruck, IconShieldCheck } from '@ta
                 class="flex items-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-3 backdrop-blur-lg"
               >
                 <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
-                  <IconTruck :size="20" class="text-[#f7c7a3]" />
+                  <IconTruck :size="20" class="text-soft" />
                 </div>
 
                 <div>
@@ -121,7 +121,7 @@ import { IconArrowRight, IconShoppingBag, IconTruck, IconShieldCheck } from '@ta
                 class="flex items-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-3 backdrop-blur-lg"
               >
                 <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
-                  <IconShieldCheck :size="20" class="text-[#f7c7a3]" />
+                  <IconShieldCheck :size="20" class="text-soft" />
                 </div>
 
                 <div>
