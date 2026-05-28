@@ -24,7 +24,7 @@ const routes = [
     path: '/404',
     name: 'not-found',
     component: () => import('@/views/NotFound.vue'),
-    meta: { title: '404 - Page Not Found | Abakaliki Recreation Club' },
+    meta: { title: '404 - Page Not Found | Immaeby Fashion Closet' },
   },
   // Catch-All Redirect
   {
@@ -36,6 +36,33 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+
+  scrollBehavior(to, from, savedPosition) {
+    // Browser back/forward support
+    if (savedPosition) {
+      return savedPosition
+    }
+
+    // Anchor scrolling
+    if (to.hash) {
+      return {
+        el: to.hash,
+        top: 90,
+        behavior: 'smooth',
+      }
+    }
+
+    // Default scroll to top
+    return {
+      top: 0,
+      behavior: 'smooth',
+    }
+  },
+})
+
+// Dynamic Page Titles
+router.beforeEach((to) => {
+  document.title = (to.meta.title as string) || 'Immaeby Fashion Closet'
 })
 
 export default router
