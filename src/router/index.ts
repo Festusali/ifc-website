@@ -18,6 +18,19 @@ const routes = [
     component: HomePage,
     meta: { title: 'Immaeby Fashion Closet | Stylish Unisex Fashion For Every Closet' },
   },
+
+  // 404 Page Not Found
+  {
+    path: '/404',
+    name: 'not-found',
+    component: () => import('@/views/NotFound.vue'),
+    meta: { title: '404 - Page Not Found | Abakaliki Recreation Club' },
+  },
+  // Catch-All Redirect
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+  },
 ]
 
 const router = createRouter({
