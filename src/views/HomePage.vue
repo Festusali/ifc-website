@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import FeaturedCategories from '@/components/home/FeaturedCategories.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import NavBar from '@/components/layout/NavBar.vue'
 
@@ -27,5 +28,8 @@ HomePage.vue
 
     <!-- Hero Section -->
     <HeroSection class="pt-15" />
+
+    <!-- Featured Categories -->
+    <FeaturedCategories />
   </main>
 </template>
