@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HeroSection from '@/components/home/HeroSection.vue'
+import NavBar from '@/components/layout/NavBar.vue'
 
 /*
 TODO: Home Page
@@ -21,6 +22,9 @@ HomePage.vue
 
 <template>
   <main>
+    <!-- NavBar -->
+    <NavBar />
+
     <!-- Hero Section -->
     <HeroSection class="pt-15" />
   </main>
