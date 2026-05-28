@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BestSellers from '@/components/home/BestSellers.vue'
 import FeaturedCategories from '@/components/home/FeaturedCategories.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import NewArrivals from '@/components/home/NewArrivals.vue'
@@ -39,5 +40,8 @@ HomePage.vue
 
     <!-- Promo Banner -->
     <PromoBanner />
+
+    <!-- Best Sellers -->
+    <BestSellers />
   </main>
 </template>
