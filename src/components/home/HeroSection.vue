@@ -162,7 +162,7 @@ import { IconArrowRight, IconShoppingBag, IconTruck, IconShieldCheck } from '@ta
             <img
               src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200&auto=format&fit=crop"
               alt="Fashion Model"
-              class="h-180 w-full object-cover"
+              class="h-100 md:h-180 w-full object-cover"
             />
           </div>
 

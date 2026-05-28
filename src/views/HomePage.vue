@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FeaturedCategories from '@/components/home/FeaturedCategories.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
+import NewArrivals from '@/components/home/NewArrivals.vue'
 import NavBar from '@/components/layout/NavBar.vue'
 
 /*
@@ -31,5 +32,8 @@ HomePage.vue
 
     <!-- Featured Categories -->
     <FeaturedCategories />
+
+    <!-- New Arrivals -->
+    <NewArrivals />
   </main>
 </template>
