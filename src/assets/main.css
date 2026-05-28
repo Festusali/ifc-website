@@ -1,0 +1,114 @@
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&family=Poppins:wght@100..900&display=swap");
+
+@import "tailwindcss";
+
+/* =========================================
+   THEME
+========================================= */
+
+@theme {
+  --color-primary: #B5522D;
+  --color-primary-dark: #8F3F22;
+  --color-secondary: #2B140E;
+  /* --color-soft: #F3E7DE; */
+  --color-soft: #f7c7a3;
+  --color-muted: #6B7280;
+  --color-border: #E5E7EB;
+
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Inter", "Poppins", sans-serif;
+
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: lightgray;
+  color: var(--color-secondary);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* =========================================
+   TYPOGRAPHY
+========================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+p {
+  line-height: 1.7;
+}
+
+/* =========================================
+   BASE ELEMENTS
+========================================= */
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button:not(:disabled),
+[role="button"]:not(:disabled) {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* =========================================
+   REUSABLE UTILITIES
+========================================= */
+
+@utility container-base {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility section-padding {
+  @apply py-16 md:py-24;
+}
+
+@utility glass-card {
+  @apply bg-white/70 backdrop-blur-xl border border-white/40;
+}
+
+@utility primary-btn {
+  @apply inline-flex items-center justify-center rounded-full bg-[var(--color-primary)] px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-[var(--color-primary-dark)] hover:-translate-y-0.5;
+}
+
+@utility secondary-btn {
+  @apply inline-flex items-center justify-center rounded-full border border-[var(--color-secondary)] px-6 py-3 text-sm font-medium text-[var(--color-secondary)] transition-all duration-300 hover:bg-[var(--color-secondary)] hover:text-white;
+}
+
+/* =========================================
+   SELECTION
+========================================= */
+
+::selection {
+  background-color: var(--color-primary);
+  color: white;
+}
