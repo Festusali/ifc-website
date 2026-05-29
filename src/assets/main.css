@@ -104,6 +104,8 @@ button:not(:disabled),
   @apply inline-flex items-center justify-center rounded-full border border-[var(--color-secondary)] px-6 py-3 text-sm font-medium text-[var(--color-secondary)] transition-all duration-300 hover:bg-[var(--color-secondary)] hover:text-white;
 }
 
+@custom-variant hover (&:hover);
+
 /* =========================================
    SELECTION
 ========================================= */
