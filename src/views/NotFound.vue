@@ -1,6 +1,21 @@
 <script setup lang="ts">
 import NavBar from '@/components/layout/NavBar.vue'
+import { useSeo } from '@/composables/useSeo'
 import { IconArrowLeft, IconHome, IconMoodConfuzed, IconSearch } from '@tabler/icons-vue'
+
+useSeo({
+  title: '404 Not Found',
+  description:
+    'The page you are looking for does not exist. Explore our latest collections and discover premium fashion pieces curated for confidence and timeless elegance.',
+  keywords: [
+    '404',
+    'not found',
+    'page not found',
+    'immaeby fashion closet',
+    'fashion',
+    'unisex fashion',
+  ],
+})
 </script>
 
 <template>

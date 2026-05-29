@@ -16,7 +16,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomePage,
-    meta: { title: 'Immaeby Fashion Closet | Stylish Unisex Fashion For Every Closet' },
   },
 
   // 404 Page Not Found
@@ -24,7 +23,6 @@ const routes = [
     path: '/404',
     name: 'not-found',
     component: () => import('@/views/NotFound.vue'),
-    meta: { title: '404 - Page Not Found | Immaeby Fashion Closet' },
   },
   // Catch-All Redirect
   {
@@ -58,11 +56,6 @@ const router = createRouter({
       behavior: 'smooth',
     }
   },
-})
-
-// Dynamic Page Titles
-router.beforeEach((to) => {
-  document.title = (to.meta.title as string) || 'Immaeby Fashion Closet'
 })
 
 export default router

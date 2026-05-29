@@ -9,23 +9,12 @@ import PromoBanner from '@/components/home/PromoBanner.vue'
 import WhyChooseUs from '@/components/home/WhyChooseUs.vue'
 import FooterSection from '@/components/layout/FooterSection.vue'
 import NavBar from '@/components/layout/NavBar.vue'
+import { useSeo } from '@/composables/useSeo'
 
-/*
-TODO: Home Page
-
-HomePage.vue
-│
-├── Navbar
-├── HeroSection
-├── FeaturedCategories
-├── NewArrivals
-├── PromoBanner
-├── BestSellers
-├── WhyChooseUs
-├── InstagramSection
-├── NewsletterSection
-└── Footer
-*/
+useSeo({
+  title: 'Immaeby Fashion Closet | Stylish Unisex Fashion For Every Closet',
+  appendSiteName: false,
+})
 </script>
 
 <template>

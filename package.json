@@ -17,6 +17,7 @@
   "dependencies": {
     "@tabler/icons-vue": "^3.44.0",
     "@tailwindcss/vite": "^4.3.0",
+    "@unhead/vue": "^3.0.0-beta.9",
     "@vueuse/motion": "^3.0.3",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.3.0",
