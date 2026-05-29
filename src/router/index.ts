@@ -17,6 +17,11 @@ const routes = [
     name: 'home',
     component: HomePage,
   },
+  {
+    path: '/shop',
+    name: 'shop',
+    component: () => import('@/views/ShopPage.vue'),
+  },
 
   // 404 Page Not Found
   {
