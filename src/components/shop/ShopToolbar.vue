@@ -54,7 +54,11 @@ const productsStore = useProductsStore()
             <div class="text-sm text-slate-500">
               Showing
               <span class="font-semibold text-secondary">
-                {{ totalProducts || 6 }}
+                {{ productsStore.visibleProducts.length }}
+              </span>
+              of
+              <span class="font-semibold text-secondary">
+                {{ productsStore.filteredProducts.length }}
               </span>
               products
             </div>

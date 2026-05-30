@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { productsSchema } from '@/schemas/product'
 import { products as dummyProducts } from '@/data/shop'
@@ -24,6 +24,12 @@ export const useProductsStore = defineStore('products', () => {
   const availableColors = computed(() => {
     return [...new Set(products.value.flatMap((p) => p.colors))]
   })
+  const visibleProducts = computed(() => {
+    return filteredProducts.value.slice(0, productsPerPage.value)
+  })
+  const hasMoreProducts = computed(() => {
+    return visibleProducts.value.length < filteredProducts.value.length
+  })
 
   // Query and filter states
   const searchQuery = ref('')
@@ -33,6 +39,17 @@ export const useProductsStore = defineStore('products', () => {
   const selectedColors = ref<string[]>([])
   const isFiltersOpen = ref(false)
   const inStockOnly = ref(false)
+  const defaultPerPage = 10
+  const productsPerPage = ref(defaultPerPage)
+
+  // State watcher
+  watch(
+    [searchQuery, sortBy, selectedCategories, selectedSizes, selectedColors, inStockOnly],
+    () => {
+      resetPagination()
+    },
+    { deep: true },
+  )
 
   // Helper function to get product by slug
   const getProductBySlug = (slug: string) => {
@@ -157,6 +174,14 @@ export const useProductsStore = defineStore('products', () => {
       : [...selectedColors.value, color]
   }
 
+  const loadMoreProducts = () => {
+    productsPerPage.value += defaultPerPage
+  }
+
+  const resetPagination = () => {
+    productsPerPage.value = defaultPerPage
+  }
+
   return {
     products,
     loading,
@@ -182,5 +207,10 @@ export const useProductsStore = defineStore('products', () => {
     toggleSize,
     toggleColor,
     inStockOnly,
+    productsPerPage,
+    visibleProducts,
+    hasMoreProducts,
+    loadMoreProducts,
+    resetPagination,
   }
 })
