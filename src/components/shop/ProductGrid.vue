@@ -5,7 +5,7 @@ import ProductCard from '@/components/shop/ProductCard.vue'
 
 const productsStore = useProductsStore()
 
-const products = computed(() => productsStore.products)
+const products = computed(() => productsStore.filteredProducts)
 const isLoading = computed(() => productsStore.loading)
 const hasProducts = computed(() => products.value.length > 0)
 
@@ -30,10 +30,7 @@ onMounted(() => {
     </div>
 
     <!-- Product Grid -->
-    <div
-      v-else
-      class="grid gap-2 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-    >
+    <div v-else class="grid gap-2 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
       <ProductCard v-for="product in products" :key="product.id" :product="product" />
     </div>
   </section>

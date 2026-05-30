@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { formatPrice } from '@/data/shop'
 import type { Product } from '@/types/product'
 import { IconEye, IconHeart, IconShoppingBagPlus, IconStarFilled } from '@tabler/icons-vue'
 
@@ -90,7 +91,8 @@ defineProps<{
         <!-- PRICE -->
         <div>
           <p class="text-2xl font-bold text-secondary">
-            {{ product.price }}
+            <span class="text-xs">{{ product?.currencySymbol }}</span>
+            {{ formatPrice(product.price) }}
           </p>
         </div>
 

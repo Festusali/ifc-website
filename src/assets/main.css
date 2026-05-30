@@ -11,7 +11,6 @@
   --color-primary: #B5522D;
   --color-primary-dark: #8F3F22;
   --color-secondary: #2B140E;
-  /* --color-soft: #F3E7DE; */
   --color-soft: #f7c7a3;
   --color-muted: #6B7280;
   --color-border: #E5E7EB;
@@ -113,4 +112,30 @@ button:not(:disabled),
 ::selection {
   background-color: var(--color-primary);
   color: white;
+}
+
+/* =========================================
+CUSTOM SCROLLBAR
+========================================= */
+.slim-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.slim-scrollbar::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+.slim-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.slim-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+}
+
+.slim-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
 }

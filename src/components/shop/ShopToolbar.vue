@@ -1,9 +1,16 @@
 <script setup lang="ts">
+import { useProductsStore } from '@/stores/products'
 import { IconAdjustmentsHorizontal, IconChevronDown, IconSearch } from '@tabler/icons-vue'
 
 defineProps<{
   totalProducts?: number
 }>()
+
+defineEmits<{
+  (e: 'toggle-filters'): void
+}>()
+
+const productsStore = useProductsStore()
 </script>
 
 <template>
@@ -24,6 +31,7 @@ defineProps<{
               </div>
 
               <input
+                v-model="productsStore.searchQuery"
                 type="text"
                 placeholder="Search products..."
                 class="h-12 w-full rounded-full border border-black/5 bg-[#f8f5f2] pr-5 pl-12 text-sm outline-none transition-all duration-300 focus:border-primary/20 focus:ring-4 focus:ring-primary/10"
@@ -32,7 +40,8 @@ defineProps<{
 
             <!-- FILTER BUTTON -->
             <button
-              class="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-black/5 bg-[#f8f5f2] px-6 text-sm font-medium text-secondary transition-all duration-300 hover:border-primary/20 hover:bg-primary/5"
+              @click="$emit('toggle-filters')"
+              class="lg:hidden inline-flex h-12 items-center justify-center gap-2 rounded-full border border-black/5 bg-[#f8f5f2] px-6 text-sm font-medium text-secondary transition-all duration-300 hover:border-primary/20 hover:bg-primary/5"
             >
               <IconAdjustmentsHorizontal :size="20" />
               Filters
@@ -53,13 +62,14 @@ defineProps<{
             <!-- SORT -->
             <div class="relative">
               <select
+                v-model="productsStore.sortBy"
                 class="h-12 appearance-none rounded-full border border-black/5 bg-[#f8f5f2] px-5 pr-12 text-sm font-medium text-secondary outline-none transition-all duration-300 focus:border-primary/20 focus:ring-4 focus:ring-primary/10 w-full"
               >
-                <option>Sort by Latest</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Most Popular</option>
-                <option>Best Rated</option>
+                <option value="latest">Sort by Latest</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="popularity">Most Popular</option>
+                <option value="rating">Best Rated</option>
               </select>
 
               <!-- ICON -->
