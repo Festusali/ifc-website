@@ -79,19 +79,19 @@ onUnmounted(() => {
 
           <div class="max-h-60 slim-scrollbar space-y-3 overflow-y-auto pr-2">
             <label
-              v-for="category in productsStore.categories"
-              :key="category"
+              v-for="category in productsStore.categoryFilters"
+              :key="category?.id"
               class="flex cursor-pointer items-center gap-3"
             >
               <input
                 v-model="productsStore.selectedCategories"
-                :value="category"
+                :value="category?.id"
                 type="checkbox"
                 class="h-4 w-4 rounded border-black/10 text-primary focus:ring-primary"
               />
 
               <span class="text-sm text-secondary">
-                {{ category }}
+                {{ category?.name }}
               </span>
             </label>
           </div>

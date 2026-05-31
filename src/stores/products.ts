@@ -2,9 +2,17 @@ import { productsSchema } from '@/schemas/product'
 import { products as dummyProducts } from '@/data/shop'
 import type { Product } from '@/schemas/product'
 import { defineStore } from 'pinia'
+import type { Category } from '@/schemas/category'
+import { useCategoriesStore } from './categories'
 type ProductSort = 'latest' | 'price-low' | 'price-high' | 'rating' | 'popularity'
 
 const DEFAULT_PER_PAGE = 10
+
+// Check if categories are already loaded, if not, fetch them
+const categoriesStore = useCategoriesStore()
+if (!categoriesStore.categories.length) {
+  categoriesStore.fetchCategories?.()
+}
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
@@ -36,7 +44,16 @@ export const useProductsStore = defineStore('products', {
 
     inStockProducts: (state) => state.products.filter((product) => product.stock > 0),
 
-    categories: (state) => [...new Set(state.products.flatMap((p) => p.categoryIds))],
+    categoryFilters(): Category[] {
+      const categoriesStore = useCategoriesStore()
+
+      const ids = [...new Set(this.products.flatMap((p) => p.categoryIds))]
+
+      return ids
+        .map((id) => categoriesStore.getCategoryById(id))
+        .filter(Boolean)
+        .sort((a, b) => (a?.sortOrder || 0) - (b?.sortOrder || 0)) as Category[]
+    },
 
     availableSizes: (state) => [...new Set(state.products.flatMap((p) => p.sizes))],
 
@@ -109,9 +126,10 @@ export const useProductsStore = defineStore('products', {
 
         case 'popularity':
           filtered.sort((a, b) => {
-            const aPopularity = a.rating * (a.stock > 0 ? 1 : 0.5) * (a.bestSeller ? 1.5 : 1)
-
-            const bPopularity = b.rating * (b.stock > 0 ? 1 : 0.5) * (b.bestSeller ? 1.5 : 1)
+            const aPopularity =
+              a.rating * (a.stock > 0 ? 1 : 0.5) * a.reviewCount * (a.bestSeller ? 1.5 : 1)
+            const bPopularity =
+              b.rating * (b.stock > 0 ? 1 : 0.5) * b.reviewCount * (b.bestSeller ? 1.5 : 1)
 
             return bPopularity - aPopularity
           })

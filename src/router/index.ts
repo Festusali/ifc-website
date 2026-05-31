@@ -7,6 +7,10 @@ TODO: Basic Routes Before Launch
 - Home
 - Shop
 - Categories
+- Category Detail
+- Product Detail
+- Cart
+- Checkout
 - About
 - Contact
 */
@@ -21,6 +25,16 @@ const routes = [
     path: '/shop',
     name: 'shop',
     component: () => import('@/views/ShopPage.vue'),
+  },
+  {
+    path: '/categories',
+    name: 'categories',
+    component: () => import('@/views/CategoriesPage.vue'),
+  },
+  {
+    path: '/categories/:slug',
+    name: 'category-detail',
+    component: () => import('@/views/CategoryDetailPage.vue'),
   },
 
   // 404 Page Not Found
