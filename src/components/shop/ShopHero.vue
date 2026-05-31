@@ -1,5 +1,22 @@
 <script setup lang="ts">
-import { IconChevronRight, IconSparkles } from '@tabler/icons-vue'
+import { IconSparkles } from '@tabler/icons-vue'
+import BreadCrumb from '../layout/BreadCrumb.vue'
+
+const breadcrumbItems = [
+  {
+    label: 'Home',
+    to: '/',
+  },
+  {
+    label: 'Shop',
+  },
+]
+
+const breadcrumb = {
+  items: breadcrumbItems,
+  linkClass: 'text-white-80 transition-colors duration-300 hover:text-primary',
+  activeLinkClass: 'text-white font-medium',
+}
 </script>
 
 <template>
@@ -45,11 +62,7 @@ import { IconChevronRight, IconSparkles } from '@tabler/icons-vue'
           }"
           class="mb-6 flex flex-wrap items-center gap-2 text-sm text-white/70"
         >
-          <router-link :to="{ name: 'home' }">Home</router-link>
-
-          <IconChevronRight :size="16" />
-
-          <span class="text-white"> Shop </span>
+          <BreadCrumb :breadcrumb="breadcrumb" />
         </div>
 
         <!-- Badge -->
