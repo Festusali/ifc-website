@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CategoriesHero from '@/components/categories/CategoriesHero.vue'
 import CategoryGrid from '@/components/categories/CategoryGrid.vue'
 import NavBar from '@/components/layout/NavBar.vue'
 import { useSeo } from '@/composables/useSeo'
@@ -26,6 +27,10 @@ useSeo({
 
   <!-- Main Content -->
   <main>
-    <CategoryGrid class="mt-16" />
+    <!-- Categories Hero -->
+    <CategoriesHero />
+
+    <!-- Category Grid -->
+    <CategoryGrid />
   </main>
 </template>

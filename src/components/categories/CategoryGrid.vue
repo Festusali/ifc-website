@@ -2,10 +2,11 @@
 import { computed, onMounted } from 'vue'
 import { useCategoriesStore } from '@/stores/categories'
 import CategoryCard from './CategoryCard.vue'
+import LoadMore from '../layout/LoadMore.vue'
 
 const categoriesStore = useCategoriesStore()
 
-const categories = computed(() => categoriesStore.filteredCategories)
+const categories = computed(() => categoriesStore.visibleCategories)
 const isLoading = computed(() => categoriesStore.loading)
 const hasCategories = computed(() => categories.value.length > 0)
 
@@ -39,7 +40,7 @@ onMounted(() => {
       <div class="text-sm text-slate-500">
         Showing
         <span class="font-semibold text-secondary">
-          {{ categoriesStore.filteredCategories.length }}
+          {{ categoriesStore.visibleCategories.length }}
         </span>
         of
         <span class="font-semibold text-secondary">
@@ -48,5 +49,11 @@ onMounted(() => {
         categories
       </div>
     </div>
+
+    <LoadMore
+      :has-more="categoriesStore.hasMoreCategories"
+      :loading="categoriesStore.loading"
+      @load-more="categoriesStore.loadMoreCategories"
+    />
   </section>
 </template>

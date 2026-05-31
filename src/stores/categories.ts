@@ -5,6 +5,8 @@ import { categories as dummyCategories } from '@/data/shop'
 
 import type { Category } from '@/schemas/category'
 
+const DEFAULT_PER_PAGE = 12
+
 export const useCategoriesStore = defineStore('categories', {
   state: () => ({
     categories: [] as Category[],
@@ -12,6 +14,8 @@ export const useCategoriesStore = defineStore('categories', {
 
     searchQuery: '',
     activeOnly: true,
+
+    categoriesPerPage: DEFAULT_PER_PAGE,
   }),
 
   getters: {
@@ -48,6 +52,14 @@ export const useCategoriesStore = defineStore('categories', {
       }
 
       return filtered.sort((a, b) => a.sortOrder - b.sortOrder)
+    },
+
+    visibleCategories(): Category[] {
+      return this.filteredCategories.slice(0, this.categoriesPerPage)
+    },
+
+    hasMoreCategories(): boolean {
+      return this.visibleCategories.length < this.filteredCategories.length
     },
   },
 
@@ -92,9 +104,18 @@ export const useCategoriesStore = defineStore('categories', {
       this.searchQuery = query
     },
 
+    loadMoreCategories() {
+      this.categoriesPerPage += DEFAULT_PER_PAGE
+    },
+
+    resetPagination() {
+      this.categoriesPerPage = DEFAULT_PER_PAGE
+    },
+
     clearFilters() {
       this.searchQuery = ''
       this.activeOnly = true
+      this.resetPagination()
     },
   },
 })

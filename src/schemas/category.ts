@@ -9,6 +9,7 @@ export const categorySchema = z.object({
   name: z.string(),
   shortDescription: z.string(),
   description: z.string(),
+  accentColor: z.string().optional(),
 
   // Media
   image: z.url(),

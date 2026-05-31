@@ -2,7 +2,7 @@
 import { computed, onMounted } from 'vue'
 import { useProductsStore } from '@/stores/products'
 import ProductCard from '@/components/shop/ProductCard.vue'
-import LoadMore from './LoadMore.vue'
+import LoadMore from '@/components/layout/LoadMore.vue'
 
 const productsStore = useProductsStore()
 

@@ -5,6 +5,16 @@ import ProductGrid from '@/components/shop/ProductGrid.vue'
 import { useProductsStore } from '@/stores/products'
 
 const productsStore = useProductsStore()
+
+/*
+TODO: Move architecture into
+
+CatalogLayout.vue
+├── ShopToolbar.vue
+├── SidebarFilters.vue
+├── ProductGrid.vue
+└── LoadMore.vue
+*/
 </script>
 
 <template>

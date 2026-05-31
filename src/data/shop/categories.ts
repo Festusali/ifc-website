@@ -8,6 +8,7 @@ export const dummyCategories: CategoryInput[] = [
     shortDescription: 'Trending fashion and lifestyle products.',
     description:
       'Explore clothing, footwear, accessories, and lifestyle essentials for everyday style.',
+    accentColor: '#D4A373',
     image:
       'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop',
     banner:
@@ -36,6 +37,7 @@ export const dummyCategories: CategoryInput[] = [
     name: 'Clothing',
     shortDescription: 'Premium clothing for every occasion.',
     description: 'Discover shirts, trousers, jeans, polos, and other wardrobe essentials.',
+    accentColor: '#A66EFA',
     image:
       'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=1200&auto=format&fit=crop',
     icon: 'hanger',
@@ -83,6 +85,7 @@ export const dummyCategories: CategoryInput[] = [
     name: 'Streetwear',
     shortDescription: 'Urban-inspired fashion essentials.',
     description: 'Oversized tees, hoodies, jackets, and trend-driven streetwear styles.',
+    accentColor: '#F2545B',
     image:
       'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop',
     icon: 'hoodie',
@@ -104,6 +107,7 @@ export const dummyCategories: CategoryInput[] = [
     name: 'Accessories',
     shortDescription: 'Complete your look with premium accessories.',
     description: 'Watches, jewelry, belts, wallets, sunglasses, and more.',
+    accentColor: '#43BCCD',
     image:
       'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200&auto=format&fit=crop',
     banner:
@@ -132,6 +136,7 @@ export const dummyCategories: CategoryInput[] = [
     name: 'Bags',
     shortDescription: 'Backpacks, handbags, and travel bags.',
     description: 'Functional and stylish bags for work, travel, and everyday use.',
+    accentColor: '#FF6F61',
     image:
       'https://images.unsplash.com/photo-1559195690-236f5fab61a9?q=80&w=1200&auto=format&fit=crop',
     icon: 'bag',
@@ -195,6 +200,7 @@ export const dummyCategories: CategoryInput[] = [
     name: 'Menswear',
     shortDescription: 'Modern menswear essentials.',
     description: 'Tailored shirts, trousers, polos, jeans, and smart-casual staples.',
+    accentColor: '#6A0572',
     image:
       'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?q=80&w=1200&auto=format&fit=crop',
     icon: 'user',
@@ -221,6 +227,7 @@ export const dummyCategories: CategoryInput[] = [
     name: 'Sports & Fitness',
     shortDescription: 'Activewear and fitness essentials.',
     description: 'Performance apparel, training gear, footwear, and fitness products.',
+    accentColor: '#1B998B',
     image:
       'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop',
     banner:
@@ -249,6 +256,7 @@ export const dummyCategories: CategoryInput[] = [
     name: 'Wearable Tech',
     shortDescription: 'Smartwatches and wearable devices.',
     description: 'Stay connected and track your fitness with smart wearable technology.',
+    accentColor: '#0F4C5C',
     image:
       'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200&auto=format&fit=crop',
     icon: 'smartwatch',
