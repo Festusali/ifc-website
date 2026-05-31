@@ -1,216 +1,213 @@
-import { computed, ref, watch } from 'vue'
-import { defineStore } from 'pinia'
 import { productsSchema } from '@/schemas/product'
 import { products as dummyProducts } from '@/data/shop'
+import type { Product } from '@/schemas/product'
+import { defineStore } from 'pinia'
+type ProductSort = 'latest' | 'price-low' | 'price-high' | 'rating' | 'popularity'
 
-import type { Product } from '@/types/product'
+const DEFAULT_PER_PAGE = 10
 
-export const useProductsStore = defineStore('products', () => {
-  // State
-  const products = ref<Product[]>([])
-  const loading = ref(false)
+export const useProductsStore = defineStore('products', {
+  state: () => ({
+    // Data
+    products: [] as Product[],
+    loading: false,
 
-  // Computed properties for filtering products
-  const featuredProducts = computed(() => products.value.filter((product) => product.featured))
-  const bestSellerProducts = computed(() => products.value.filter((product) => product.bestSeller))
-  const newArrivalProducts = computed(() => products.value.filter((product) => product.newArrival))
-  const inStockProducts = computed(() => products.value.filter((product) => product.inStock))
-  const categories = computed(() => {
-    return [...new Set(products.value.map((p) => p.category))]
-  })
-  const availableSizes = computed(() => {
-    return [...new Set(products.value.flatMap((p) => p.sizes))]
-  })
-  const availableColors = computed(() => {
-    return [...new Set(products.value.flatMap((p) => p.colors))]
-  })
-  const visibleProducts = computed(() => {
-    return filteredProducts.value.slice(0, productsPerPage.value)
-  })
-  const hasMoreProducts = computed(() => {
-    return visibleProducts.value.length < filteredProducts.value.length
-  })
+    // Search & Filters
+    searchQuery: '',
+    sortBy: 'latest' as ProductSort,
 
-  // Query and filter states
-  const searchQuery = ref('')
-  const sortBy = ref('latest')
-  const selectedCategories = ref<string[]>([])
-  const selectedSizes = ref<string[]>([])
-  const selectedColors = ref<string[]>([])
-  const isFiltersOpen = ref(false)
-  const inStockOnly = ref(false)
-  const defaultPerPage = 10
-  const productsPerPage = ref(defaultPerPage)
+    selectedCategories: [] as string[],
+    selectedSizes: [] as string[],
+    selectedColors: [] as string[],
 
-  // State watcher
-  watch(
-    [searchQuery, sortBy, selectedCategories, selectedSizes, selectedColors, inStockOnly],
-    () => {
-      resetPagination()
+    inStockOnly: false,
+    isFiltersOpen: false,
+
+    // Pagination
+    productsPerPage: DEFAULT_PER_PAGE,
+  }),
+
+  getters: {
+    featuredProducts: (state) => state.products.filter((product) => product.featured),
+
+    bestSellerProducts: (state) => state.products.filter((product) => product.bestSeller),
+
+    newArrivalProducts: (state) => state.products.filter((product) => product.newArrival),
+
+    inStockProducts: (state) => state.products.filter((product) => product.stock > 0),
+
+    categories: (state) => [...new Set(state.products.flatMap((p) => p.categoryIds))],
+
+    availableSizes: (state) => [...new Set(state.products.flatMap((p) => p.sizes))],
+
+    availableColors: (state) => [...new Set(state.products.flatMap((p) => p.colors))],
+
+    filteredProducts(state): Product[] {
+      let filtered = [...state.products]
+
+      // SEARCH
+      if (state.searchQuery.trim()) {
+        const query = state.searchQuery.toLowerCase()
+
+        filtered = filtered.filter((product) =>
+          [
+            product.name,
+            product.description,
+            product.brand,
+            ...product.tags,
+            ...product.categoryIds,
+          ]
+            .join(' ')
+            .toLowerCase()
+            .includes(query),
+        )
+      }
+
+      // STOCK
+      if (state.inStockOnly) {
+        filtered = filtered.filter((product) => product.stock > 0)
+      }
+
+      // CATEGORY
+      if (state.selectedCategories.length) {
+        filtered = filtered.filter((product) =>
+          product.categoryIds.some((id) => state.selectedCategories.includes(id)),
+        )
+      }
+
+      // SIZE
+      if (state.selectedSizes.length) {
+        filtered = filtered.filter((product) =>
+          product.sizes.some((size) => state.selectedSizes.includes(size)),
+        )
+      }
+
+      // COLOR
+      if (state.selectedColors.length) {
+        filtered = filtered.filter((product) =>
+          product.colors.some((color) => state.selectedColors.includes(color)),
+        )
+      }
+
+      // SORT
+      switch (state.sortBy) {
+        case 'price-low':
+          filtered.sort((a, b) => Number(a.price) - Number(b.price))
+          break
+
+        case 'price-high':
+          filtered.sort((a, b) => Number(b.price) - Number(a.price))
+          break
+
+        case 'rating':
+          filtered.sort((a, b) => b.rating - a.rating)
+          break
+
+        case 'latest':
+          filtered.sort((a, b) => b.created.getTime() - a.created.getTime())
+          break
+
+        case 'popularity':
+          filtered.sort((a, b) => {
+            const aPopularity = a.rating * (a.stock > 0 ? 1 : 0.5) * (a.bestSeller ? 1.5 : 1)
+
+            const bPopularity = b.rating * (b.stock > 0 ? 1 : 0.5) * (b.bestSeller ? 1.5 : 1)
+
+            return bPopularity - aPopularity
+          })
+          break
+      }
+
+      return filtered
     },
-    { deep: true },
-  )
 
-  // Helper function to get product by slug
-  const getProductBySlug = (slug: string) => {
-    return products.value.find((product) => product.slug === slug)
-  }
+    visibleProducts(): Product[] {
+      return this.filteredProducts.slice(0, this.productsPerPage)
+    },
 
-  const filteredProducts = computed(() => {
-    let filtered = [...products.value]
+    hasMoreProducts(): boolean {
+      return this.visibleProducts.length < this.filteredProducts.length
+    },
+  },
 
-    // SEARCH
-    if (searchQuery.value.trim()) {
-      const query = searchQuery.value.toLowerCase()
+  actions: {
+    async fetchProducts() {
+      try {
+        this.loading = true
 
-      filtered = filtered.filter((product) =>
-        [product.name, product.category, product.description]
-          .join(' ')
-          .toLowerCase()
-          .includes(query),
-      )
-    }
+        const validatedProducts = productsSchema.parse(dummyProducts)
+        this.products = validatedProducts
+      } catch (error) {
+        console.error('Product validation failed:', error)
+      } finally {
+        this.loading = false
+      }
+    },
 
-    // IN STOCK FILTER
-    if (inStockOnly.value) {
-      filtered = filtered.filter((product) => product.inStock)
-    }
+    getProductBySlug(slug: string) {
+      return this.products.find((product) => product.slug === slug)
+    },
 
-    // CATEGORY FILTER
-    if (selectedCategories.value.length) {
-      filtered = filtered.filter((product) => selectedCategories.value.includes(product.category))
-    }
+    clearFilters() {
+      this.searchQuery = ''
+      this.sortBy = 'latest'
+      this.inStockOnly = false
+      this.selectedCategories = []
+      this.selectedSizes = []
+      this.selectedColors = []
+      this.resetPagination()
+    },
 
-    // SIZE FILTER
-    if (selectedSizes.value.length) {
-      filtered = filtered.filter((product) =>
-        product.sizes.some((size) => selectedSizes.value.includes(size)),
-      )
-    }
+    toggleFilters() {
+      this.isFiltersOpen = !this.isFiltersOpen
+    },
 
-    // COLOR FILTER
-    if (selectedColors.value.length) {
-      filtered = filtered.filter((product) =>
-        product.colors.some((color) => selectedColors.value.includes(color)),
-      )
-    }
+    toggleCategory(categoryId: string) {
+      if (this.selectedCategories.includes(categoryId)) {
+        this.selectedCategories = this.selectedCategories.filter((id) => id !== categoryId)
+      } else {
+        this.selectedCategories.push(categoryId)
+      }
 
-    // SORTING
-    switch (sortBy.value) {
-      case 'price-low':
-        filtered.sort((a, b) => Number(a.price) - Number(b.price))
-        break
+      this.resetPagination()
+    },
 
-      case 'price-high':
-        filtered.sort((a, b) => Number(b.price) - Number(a.price))
-        break
+    toggleSize(size: string) {
+      if (this.selectedSizes.includes(size)) {
+        this.selectedSizes = this.selectedSizes.filter((item) => item !== size)
+      } else {
+        this.selectedSizes.push(size)
+      }
 
-      case 'rating':
-        filtered.sort((a, b) => b.rating - a.rating)
-        break
+      this.resetPagination()
+    },
 
-      case 'latest':
-        filtered.sort((a, b) => b.created.getTime() - a.created.getTime())
-        break
+    toggleColor(color: string) {
+      if (this.selectedColors.includes(color)) {
+        this.selectedColors = this.selectedColors.filter((item) => item !== color)
+      } else {
+        this.selectedColors.push(color)
+      }
 
-      case 'popularity':
-        filtered.sort((a, b) => {
-          const aPopularity = (a.rating || 0) * (a.inStock ? 1 : 0.5) * (a.bestSeller ? 1.5 : 1)
-          const bPopularity = (b.rating || 0) * (b.inStock ? 1 : 0.5) * (b.bestSeller ? 1.5 : 1)
-          return bPopularity - aPopularity
-        })
-        break
+      this.resetPagination()
+    },
 
-      default:
-        break
-    }
+    setSearchQuery(query: string) {
+      this.searchQuery = query
+      this.resetPagination()
+    },
 
-    return filtered
-  })
+    setSort(sort: ProductSort) {
+      this.sortBy = sort
+      this.resetPagination()
+    },
 
-  // Actions
-  const fetchProducts = async () => {
-    try {
-      loading.value = true
+    loadMoreProducts() {
+      this.productsPerPage += DEFAULT_PER_PAGE
+    },
 
-      const validatedProducts = productsSchema.parse(dummyProducts)
-      products.value = validatedProducts
-    } catch (error) {
-      console.error('Product validation failed:', error)
-    } finally {
-      loading.value = false
-    }
-  }
-
-  const clearFilters = () => {
-    searchQuery.value = ''
-    sortBy.value = 'latest'
-    inStockOnly.value = false
-
-    selectedCategories.value = []
-    selectedSizes.value = []
-    selectedColors.value = []
-  }
-
-  const toggleFilters = () => {
-    isFiltersOpen.value = !isFiltersOpen.value
-  }
-
-  const toggleCategory = (category: string) => {
-    selectedCategories.value = selectedCategories.value.includes(category)
-      ? selectedCategories.value.filter((c) => c !== category)
-      : [...selectedCategories.value, category]
-  }
-
-  const toggleSize = (size: string) => {
-    selectedSizes.value = selectedSizes.value.includes(size)
-      ? selectedSizes.value.filter((s) => s !== size)
-      : [...selectedSizes.value, size]
-  }
-
-  const toggleColor = (color: string) => {
-    selectedColors.value = selectedColors.value.includes(color)
-      ? selectedColors.value.filter((c) => c !== color)
-      : [...selectedColors.value, color]
-  }
-
-  const loadMoreProducts = () => {
-    productsPerPage.value += defaultPerPage
-  }
-
-  const resetPagination = () => {
-    productsPerPage.value = defaultPerPage
-  }
-
-  return {
-    products,
-    loading,
-    featuredProducts,
-    bestSellerProducts,
-    newArrivalProducts,
-    inStockProducts,
-    fetchProducts,
-    getProductBySlug,
-    searchQuery,
-    sortBy,
-    selectedCategories,
-    selectedSizes,
-    selectedColors,
-    filteredProducts,
-    categories,
-    availableSizes,
-    availableColors,
-    clearFilters,
-    isFiltersOpen,
-    toggleFilters,
-    toggleCategory,
-    toggleSize,
-    toggleColor,
-    inStockOnly,
-    productsPerPage,
-    visibleProducts,
-    hasMoreProducts,
-    loadMoreProducts,
-    resetPagination,
-  }
+    resetPagination() {
+      this.productsPerPage = DEFAULT_PER_PAGE
+    },
+  },
 })
