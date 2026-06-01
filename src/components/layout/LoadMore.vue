@@ -4,6 +4,7 @@ import { IconChevronDown, IconLoader2 } from '@tabler/icons-vue'
 defineProps<{
   loading?: boolean
   hasMore?: boolean
+  label?: string
 }>()
 
 const emit = defineEmits<{
@@ -21,7 +22,7 @@ const emit = defineEmits<{
       <IconLoader2 v-if="loading" :size="20" class="animate-spin" />
 
       <span>
-        {{ loading ? 'Loading...' : 'Load More Products' }}
+        {{ loading ? 'Loading...' : label || 'Load More Products' }}
       </span>
 
       <IconChevronDown

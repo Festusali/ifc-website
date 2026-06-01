@@ -1,21 +1,12 @@
 import { defineStore } from 'pinia'
-
 import { categoriesSchema } from '@/schemas/category'
 import { categories as dummyCategories } from '@/data/shop'
-
 import type { Category } from '@/schemas/category'
-
-const DEFAULT_PER_PAGE = 12
 
 export const useCategoriesStore = defineStore('categories', {
   state: () => ({
     categories: [] as Category[],
     loading: false,
-
-    searchQuery: '',
-    activeOnly: true,
-
-    categoriesPerPage: DEFAULT_PER_PAGE,
   }),
 
   getters: {
@@ -32,35 +23,6 @@ export const useCategoriesStore = defineStore('categories', {
 
     rootCategories: (state): Category[] =>
       state.categories.filter((category) => category.parentId === null),
-
-    filteredCategories(state): Category[] {
-      let filtered = [...state.categories]
-
-      if (state.activeOnly) {
-        filtered = filtered.filter((category) => category.active)
-      }
-
-      if (state.searchQuery.trim()) {
-        const query = state.searchQuery.toLowerCase()
-
-        filtered = filtered.filter((category) =>
-          [category.name, category.shortDescription, category.description]
-            .join(' ')
-            .toLowerCase()
-            .includes(query),
-        )
-      }
-
-      return filtered.sort((a, b) => a.sortOrder - b.sortOrder)
-    },
-
-    visibleCategories(): Category[] {
-      return this.filteredCategories.slice(0, this.categoriesPerPage)
-    },
-
-    hasMoreCategories(): boolean {
-      return this.visibleCategories.length < this.filteredCategories.length
-    },
   },
 
   actions: {
@@ -98,24 +60,6 @@ export const useCategoriesStore = defineStore('categories', {
       }
 
       return this.getCategoryById(category.parentId)
-    },
-
-    setSearchQuery(query: string) {
-      this.searchQuery = query
-    },
-
-    loadMoreCategories() {
-      this.categoriesPerPage += DEFAULT_PER_PAGE
-    },
-
-    resetPagination() {
-      this.categoriesPerPage = DEFAULT_PER_PAGE
-    },
-
-    clearFilters() {
-      this.searchQuery = ''
-      this.activeOnly = true
-      this.resetPagination()
     },
   },
 })

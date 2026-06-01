@@ -2,6 +2,7 @@
 defineProps<{
   visible: number
   total: number
+  label?: string
 }>()
 </script>
 
@@ -15,6 +16,6 @@ defineProps<{
     <span class="font-semibold text-secondary">
       {{ total }}
     </span>
-    products
+    {{ label || 'products' }}
   </span>
 </template>

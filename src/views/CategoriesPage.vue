@@ -1,12 +1,17 @@
 <script setup lang="ts">
+import { computed, onMounted } from 'vue'
+import { useCategoriesStore } from '@/stores/categories'
+import { useCategoriesList } from '@/composables/useCategoriesList'
+import { useSeo } from '@/composables/useSeo'
+import type { Breadcrumb } from '@/types/breadcrumb'
+
 import CategoriesHero from '@/components/categories/CategoriesHero.vue'
 import CategoryGrid from '@/components/categories/CategoryGrid.vue'
 import NewsletterSection from '@/components/home/NewsletterSection.vue'
 import BreadCrumb from '@/components/layout/BreadCrumb.vue'
 import FooterSection from '@/components/layout/FooterSection.vue'
 import NavBar from '@/components/layout/NavBar.vue'
-import { useSeo } from '@/composables/useSeo'
-import type { Breadcrumb } from '@/types/breadcrumb'
+import LoadMore from '@/components/layout/LoadMore.vue'
 
 useSeo({
   title: 'Categories',
@@ -40,6 +45,18 @@ const breadcrumb: Breadcrumb = {
   linkClass: 'text-primary transition-colors duration-300 hover:text-primary',
   activeLinkClass: 'text-secondary font-medium',
 }
+
+const categoriesStore = useCategoriesStore()
+
+const { visibleCategories, hasMoreCategories, loadMoreCategories } = useCategoriesList(
+  computed(() => categoriesStore.categories),
+)
+
+onMounted(() => {
+  if (!categoriesStore.categories.length) {
+    categoriesStore.fetchCategories?.()
+  }
+})
 </script>
 
 <template>
@@ -55,7 +72,24 @@ const breadcrumb: Breadcrumb = {
     <BreadCrumb :breadcrumb="breadcrumb" class="bg-white/10 py-6" />
 
     <!-- Category Grid -->
-    <CategoryGrid />
+    <CategoryGrid
+      class="pb-0"
+      :categories="visibleCategories"
+      :total-count="categoriesStore.categories.length"
+      :loading="categoriesStore.loading"
+      :has-more="hasMoreCategories"
+      @load-more="loadMoreCategories"
+    />
+
+    <!-- Pagination -->
+    <div class="mt-0 pt-0 mb-12">
+      <LoadMore
+        :has-more="hasMoreCategories"
+        :loading="categoriesStore.loading"
+        label="Load More Categories"
+        @load-more="loadMoreCategories"
+      />
+    </div>
 
     <!-- Newsletter -->
     <NewsletterSection />

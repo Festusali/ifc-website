@@ -4,6 +4,7 @@ import { useCatalogStore } from '@/stores/catalog'
 import { useCatalogProducts } from '@/composables/useCatalogProducts'
 import { IconAdjustmentsHorizontal, IconChevronDown, IconSearch } from '@tabler/icons-vue'
 import type { Product } from '@/schemas/product'
+import CatalogCount from './CatalogCount.vue'
 
 defineEmits<{
   (e: 'toggle-filters'): void
@@ -56,13 +57,11 @@ const { visibleProducts, filteredProducts } = useCatalogProducts(
           <!-- RIGHT -->
           <div class="flex flex-col gap-4 md:flex-row md:items-center">
             <!-- PRODUCT COUNT -->
-            <div class="text-sm text-slate-500">
-              Showing
-              <span class="font-semibold text-secondary">{{ visibleProducts.length }}</span>
-              of
-              <span class="font-semibold text-secondary">{{ filteredProducts.length }}</span>
-              matched products
-            </div>
+            <CatalogCount
+              :visible="visibleProducts.length"
+              :total="filteredProducts.length"
+              label="matches"
+            />
 
             <!-- SORT -->
             <div class="relative">
