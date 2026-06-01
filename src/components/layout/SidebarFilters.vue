@@ -1,17 +1,24 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, computed, type ComputedRef } from 'vue'
 import { IconX } from '@tabler/icons-vue'
-import { useProductsStore } from '@/stores/products'
+import { useCatalogStore } from '@/stores/catalog'
+import { useCatalogProducts } from '@/composables/useCatalogProducts'
+import type { Product } from '@/schemas/product'
 
-defineProps<{
+const props = defineProps<{
   open?: boolean
+  products?: ComputedRef<Product[]>
 }>()
 
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const productsStore = useProductsStore()
+const catalogStore = useCatalogStore()
+
+const { categoryFilters, availableSizes, availableColors } = useCatalogProducts(
+  (props.products ?? computed(() => [])) as ComputedRef<Product[]>,
+)
 
 const sidebarRef = ref<HTMLElement | null>(null)
 
@@ -79,20 +86,18 @@ onUnmounted(() => {
 
           <div class="max-h-60 slim-scrollbar space-y-3 overflow-y-auto pr-2">
             <label
-              v-for="category in productsStore.categoryFilters"
+              v-for="category in categoryFilters"
               :key="category?.id"
               class="flex cursor-pointer items-center gap-3"
             >
               <input
-                v-model="productsStore.selectedCategories"
+                v-model="catalogStore.selectedCategories"
                 :value="category?.id"
                 type="checkbox"
                 class="h-4 w-4 rounded border-black/10 text-primary focus:ring-primary"
               />
 
-              <span class="text-sm text-secondary">
-                {{ category?.name }}
-              </span>
+              <span class="text-sm text-secondary">{{ category?.name }}</span>
             </label>
           </div>
         </section>
@@ -105,16 +110,16 @@ onUnmounted(() => {
 
           <div class="max-h-60 slim-scrollbar overflow-y-auto flex flex-wrap gap-3">
             <button
-              v-for="size in productsStore.availableSizes"
+              v-for="size in availableSizes"
               :key="size"
               type="button"
               class="flex h-10 min-w-10 items-center justify-center rounded-full border px-4 text-sm font-medium transition-all duration-300"
               :class="
-                productsStore.selectedSizes.includes(size)
+                catalogStore.selectedSizes.includes(size)
                   ? 'border-primary bg-primary text-white'
                   : 'border-black/10 bg-white text-secondary hover:border-primary/20'
               "
-              @click="productsStore.toggleSize(size)"
+              @click="catalogStore.toggleSize(size)"
             >
               {{ size }}
             </button>
@@ -129,16 +134,16 @@ onUnmounted(() => {
 
           <div class="max-h-60 slim-scrollbar overflow-y-auto flex flex-wrap gap-3">
             <button
-              v-for="color in productsStore.availableColors"
+              v-for="color in availableColors"
               :key="color"
               type="button"
               class="rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300"
               :class="
-                productsStore.selectedColors.includes(color)
+                catalogStore.selectedColors.includes(color)
                   ? 'border-primary bg-primary text-white'
                   : 'border-black/10 bg-white text-secondary hover:border-primary/20'
               "
-              @click="productsStore.toggleColor(color)"
+              @click="catalogStore.toggleColor(color)"
             >
               {{ color }}
             </button>
@@ -147,12 +152,9 @@ onUnmounted(() => {
 
         <!-- STOCK -->
         <section>
-          <label
-            class="flex cursor-pointer items-center gap-3"
-            @click="productsStore.inStockOnly = !!productsStore.inStockOnly"
-          >
+          <label class="flex cursor-pointer items-center gap-3">
             <input
-              v-model="productsStore.inStockOnly"
+              v-model="catalogStore.inStockOnly"
               type="checkbox"
               class="h-4 w-4 rounded border-black/10 text-primary focus:ring-primary"
             />
@@ -166,7 +168,7 @@ onUnmounted(() => {
       <div class="border-t border-black/5 p-6">
         <button
           class="flex h-12 w-full items-center justify-center rounded-full bg-secondary text-sm font-semibold text-white transition-all duration-300 hover:bg-primary"
-          @click="productsStore.clearFilters()"
+          @click="catalogStore.clearFilters()"
         >
           Clear Filters
         </button>

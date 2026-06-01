@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { useProductsStore } from '@/stores/products'
+import { computed, type ComputedRef } from 'vue'
+import { useCatalogStore } from '@/stores/catalog'
+import { useCatalogProducts } from '@/composables/useCatalogProducts'
 import { IconAdjustmentsHorizontal, IconChevronDown, IconSearch } from '@tabler/icons-vue'
-
-defineProps<{
-  totalProducts?: number
-}>()
+import type { Product } from '@/schemas/product'
 
 defineEmits<{
   (e: 'toggle-filters'): void
 }>()
 
-const productsStore = useProductsStore()
+const catalogStore = useCatalogStore()
+
+const props = defineProps<{ products?: ComputedRef<Product[]> }>()
+
+const { visibleProducts, filteredProducts } = useCatalogProducts(
+  props.products ?? computed(() => []),
+)
 </script>
 
 <template>
@@ -31,7 +36,7 @@ const productsStore = useProductsStore()
               </div>
 
               <input
-                v-model="productsStore.searchQuery"
+                v-model="catalogStore.searchQuery"
                 type="text"
                 placeholder="Search products..."
                 class="h-12 w-full rounded-full border border-black/5 bg-[#f8f5f2] pr-5 pl-12 text-sm outline-none transition-all duration-300 focus:border-primary/20 focus:ring-4 focus:ring-primary/10"
@@ -53,20 +58,16 @@ const productsStore = useProductsStore()
             <!-- PRODUCT COUNT -->
             <div class="text-sm text-slate-500">
               Showing
-              <span class="font-semibold text-secondary">
-                {{ productsStore.visibleProducts.length }}
-              </span>
+              <span class="font-semibold text-secondary">{{ visibleProducts.length }}</span>
               of
-              <span class="font-semibold text-secondary">
-                {{ productsStore.filteredProducts.length }}
-              </span>
-              products
+              <span class="font-semibold text-secondary">{{ filteredProducts.length }}</span>
+              matched products
             </div>
 
             <!-- SORT -->
             <div class="relative">
               <select
-                v-model="productsStore.sortBy"
+                v-model="catalogStore.sortBy"
                 class="h-12 appearance-none rounded-full border border-black/5 bg-[#f8f5f2] px-5 pr-12 text-sm font-medium text-secondary outline-none transition-all duration-300 focus:border-primary/20 focus:ring-4 focus:ring-primary/10 w-full"
               >
                 <option value="latest">Sort by Latest</option>
