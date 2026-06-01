@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
 
 export type ProductSort = 'latest' | 'price-low' | 'price-high' | 'rating' | 'popularity'
-
-const DEFAULT_PER_PAGE = 10
+const DEFAULT_PER_PAGE = 12
 
 export const useCatalogStore = defineStore('catalog', {
   state: () => ({
@@ -69,15 +68,11 @@ export const useCatalogStore = defineStore('catalog', {
 
     clearFilters() {
       this.searchQuery = ''
-
       this.sortBy = 'latest'
-
       this.selectedCategories = []
       this.selectedSizes = []
       this.selectedColors = []
-
       this.inStockOnly = false
-
       this.resetPagination()
     },
 
