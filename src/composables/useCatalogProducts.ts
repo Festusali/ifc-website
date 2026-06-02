@@ -110,6 +110,18 @@ export function useCatalogProducts(products: ComputedRef<Product[]>) {
     () => visibleProducts.value.length < filteredProducts.value.length,
   )
 
+  function buildCategoryTrail(category: Category) {
+    const trail: Category[] = []
+    let current: Category | undefined = category
+
+    while (current) {
+      trail.unshift(current)
+      current = current.parentId ? categoriesStore.getParent(current.id) || undefined : undefined
+    }
+
+    return trail
+  }
+
   return {
     categoryFilters,
     availableSizes,
@@ -117,5 +129,6 @@ export function useCatalogProducts(products: ComputedRef<Product[]>) {
     filteredProducts,
     visibleProducts,
     hasMoreProducts,
+    buildCategoryTrail,
   }
 }

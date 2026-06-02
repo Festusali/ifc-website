@@ -16,19 +16,8 @@ import { useCatalogStore } from '@/stores/catalog'
 import { useCategoriesStore } from '@/stores/categories'
 import { useProductsStore } from '@/stores/products'
 import type { Breadcrumb } from '@/types/breadcrumb'
-import { computed, onMounted, watch } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-
-/*
-TODO
-
-NavBar
-Hero
-Breadcrumb
-CatalogLayout
-Newsletter
-Footer
-*/
 
 const route = useRoute()
 const categoriesStore = useCategoriesStore()
@@ -53,46 +42,62 @@ const categoryProducts = computed(() => {
 
 const categoryProductsRef = computed(() => categoryProducts)
 
-const { visibleProducts, hasMoreProducts } = useCatalogProducts(categoryProducts)
+const { visibleProducts, hasMoreProducts, buildCategoryTrail } =
+  useCatalogProducts(categoryProducts)
 
-const breadcrumb = computed(
-  () =>
-    ({
-      items: [
-        {
-          label: 'Home',
-          to: { name: 'home' },
-        },
-        {
-          label: 'Categories',
-          to: { name: 'categories' },
-        },
-        {
-          label: category.value?.name ?? 'Category',
-        },
-      ],
-      align: 'center',
-      linkClass: 'text-primary transition-colors duration-300 hover:text-primary',
-      activeLinkClass: 'text-secondary font-medium',
-    }) as Breadcrumb,
-)
-
-watch(
-  category,
-  (currentCategory) => {
-    if (!currentCategory) {
-      return
+const breadcrumb = computed(() => {
+  if (!category.value) {
+    return {
+      items: [],
     }
+  }
 
-    useSeo({
-      title: currentCategory.seo?.title ?? currentCategory.name,
-      description: currentCategory.seo?.description ?? currentCategory.description,
-      keywords: currentCategory.seo?.keywords ?? [currentCategory.name],
-    })
-  },
-  {
-    immediate: true,
-  },
+  const trail = buildCategoryTrail(category.value)
+
+  return {
+    items: [
+      {
+        label: 'Home',
+        to: { name: 'home' },
+      },
+      {
+        label: 'Categories',
+        to: { name: 'categories' },
+      },
+
+      ...trail.map((item, index) => ({
+        label: item.name,
+
+        to:
+          index === trail.length - 1
+            ? undefined
+            : {
+                name: 'category-detail',
+                params: {
+                  slug: item.slug,
+                },
+              },
+      })),
+    ],
+    align: 'center',
+    linkClass: 'text-primary transition-colors duration-300 hover:text-primary',
+    activeLinkClass: 'text-secondary font-medium',
+  } as Breadcrumb
+})
+
+useSeo(
+  computed(() => ({
+    title: category.value?.seo?.title ?? category.value?.name ?? 'Category',
+    description:
+      category.value?.seo?.description ??
+      category.value?.description ??
+      'Browse our fashion categories.',
+    keywords:
+      category.value?.seo?.keywords ??
+      (category.value?.name
+        ? [category.value.name]
+        : ['category', 'fashion', 'clothing', 'immaeby']),
+  })),
 )
 
 onMounted(async () => {
