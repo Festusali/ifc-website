@@ -16,12 +16,13 @@ export const dummyProducts: ProductInput[] = [
     compareAtPrice: '13500.00',
     stock: 18,
     thumbnail:
-      'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=300&auto=format&fit=crop',
     image:
       'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop',
     gallery: [
-      'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1777126413608-f06fbd6e3208?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1777126413574-49c49a94780a?q=80&w=1200&auto=format&fit=crop',
     ],
     colors: ['Terracotta', 'Black'],
     sizes: ['S', 'M', 'L', 'XL'],
@@ -1251,11 +1252,13 @@ export const dummyProducts: ProductInput[] = [
     price: '7300.00',
     stock: 68,
     thumbnail:
-      'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=300&auto=format&fit=crop',
     image:
       'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1200&auto=format&fit=crop',
     gallery: [
-      'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1200&auto=format&fit=crop',
+      'https://plus.unsplash.com/premium_photo-1705887351211-5608f389ed06?w=600&auto=format&fit=crop&q=60',
+      'https://images.unsplash.com/photo-1606846848485-ea9d78f09ebe?w=600&auto=format&fit=crop&q=60',
+      'https://images.unsplash.com/photo-1598343168334-00b3b1791280?w=600&auto=format&fit=crop&q=60',
     ],
     colors: ['White', 'Navy'],
     sizes: ['40', '41', '42', '43'],
