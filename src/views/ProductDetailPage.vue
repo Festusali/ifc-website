@@ -52,6 +52,7 @@ import SectionHeading from '@/components/product/SectionHeading.vue'
 import NewsletterSection from '@/components/home/NewsletterSection.vue'
 import FooterSection from '@/components/layout/FooterSection.vue'
 import ProductHero from '@/components/product/ProductHero.vue'
+import ProductInfo from '@/components/product/ProductInfo.vue'
 
 // Initialize stores and route
 const route = useRoute()
