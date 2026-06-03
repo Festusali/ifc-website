@@ -67,7 +67,6 @@ const breadcrumb = computed(() => {
 
       ...trail.map((item, index) => ({
         label: item.name,
-
         to:
           index === trail.length - 1
             ? undefined
