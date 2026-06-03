@@ -1,41 +1,4 @@
 <script setup lang="ts">
-/*
-TODO: Expected page structure:
-
-ProductDetailPage
-│
-├── NavBar
-├── ProductHero
-│
-├── BreadCrumb
-│
-├── ProductDetailSection
-│   ├── ProductGallery
-│   ├── ProductInfo
-│   │   ├── Brand
-│   │   ├── Name
-│   │   ├── Rating
-│   │   ├── Price
-│   │   ├── Compare Price
-│   │   ├── Description
-│   │   ├── Colors
-│   │   ├── Sizes
-│   │   ├── Quantity
-│   │   ├── Add To Cart
-│   │   ├── Wishlist
-│   │   └── Meta
-│
-├── ProductTabs
-│   ├── Description
-│   ├── Specifications
-│   └── Shipping
-│
-├── RelatedProducts
-│
-├── Newsletter
-└── Footer
-*/
-
 import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useProductsStore } from '@/stores/products'
@@ -188,15 +151,17 @@ onMounted(() => {
 
     <ProductTabs :product="product" />
 
-    <section class="py-20">
+    <section class="py-12">
       <div class="container-base">
-        <SectionHeading title="You May Also Like" />
+        <SectionHeading title="You May Also Like" class="text-secondary/90" />
 
-        <ProductGrid :products="relatedProducts" />
+        <ProductGrid :products="relatedProducts" class="pt-6" />
       </div>
     </section>
 
-    <NewsletterSection />
+    <NewsletterSection class="pb-12 pt-12" />
+
+    <BreadCrumb :breadcrumb="breadcrumb" class="py-6" />
   </main>
 
   <FooterSection />
