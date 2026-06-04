@@ -1,42 +1,13 @@
 <script setup lang="ts">
-import {
-  IconArrowRight,
-  IconShirt,
-  IconShoe,
-  IconShoppingBagHeart,
-  IconDiamond,
-} from '@tabler/icons-vue'
+import { useCategoriesStore } from '@/stores/categories'
+import { IconArrowRight, IconFlame } from '@tabler/icons-vue'
+import { computed } from 'vue'
 
-const categories = [
-  {
-    title: 'Fashion',
-    description: 'Modern outfits curated for stylish everyday wear.',
-    image:
-      'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200&auto=format&fit=crop',
-    icon: IconShirt,
-  },
-  {
-    title: 'Shoes',
-    description: 'Premium footwear collections for every occasion.',
-    image:
-      'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1200&auto=format&fit=crop',
-    icon: IconShoe,
-  },
-  {
-    title: 'Bags',
-    description: 'Elegant bags that blend style and functionality.',
-    image:
-      'https://images.unsplash.com/photo-1682745230951-8a5aa9a474a0?q=80&w=1200&auto=format&fit=crop',
-    icon: IconShoppingBagHeart,
-  },
-  {
-    title: 'Accessories',
-    description: 'Minimal accessories that complete your look.',
-    image:
-      'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80&w=1200&auto=format&fit=crop',
-    icon: IconDiamond,
-  },
-]
+const categoriesStore = useCategoriesStore()
+
+const categories = computed(() =>
+  categoriesStore.featuredCategories.filter((c) => c.active === true).slice(0, 4),
+)
 </script>
 
 <template>
@@ -63,8 +34,9 @@ const categories = [
 
       <!-- Categories Grid -->
       <div class="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-        <div
+        <RouterLink
           v-for="(category, index) in categories"
+          :to="{ name: 'category-detail', params: { slug: category.slug } }"
           :key="index"
           v-motion
           :initial="{
@@ -85,7 +57,7 @@ const categories = [
           <div class="relative h-105 overflow-hidden">
             <img
               :src="category.image"
-              :alt="category.title"
+              :alt="category.name"
               class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
 
@@ -98,13 +70,13 @@ const categories = [
             <div
               class="absolute top-5 left-5 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-xl"
             >
-              <component :is="category.icon" :size="22" />
+              <component :is="IconFlame" :size="22" />
             </div>
 
             <!-- Content -->
             <div class="absolute right-0 bottom-0 left-0 p-6">
               <h3 class="font-heading text-3xl font-semibold text-white">
-                {{ category.title }}
+                {{ category.name }}
               </h3>
 
               <p class="mt-3 line-clamp-2 text-sm leading-relaxed text-white/75">
@@ -121,7 +93,7 @@ const categories = [
               </button>
             </div>
           </div>
-        </div>
+        </RouterLink>
       </div>
     </div>
   </section>
