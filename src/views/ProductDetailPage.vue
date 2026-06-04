@@ -16,6 +16,7 @@ import NewsletterSection from '@/components/home/NewsletterSection.vue'
 import FooterSection from '@/components/layout/FooterSection.vue'
 import ProductHero from '@/components/product/ProductHero.vue'
 import ProductInfo from '@/components/product/ProductInfo.vue'
+import ProductNotFound from './ProductNotFound.vue'
 
 // Initialize stores and route
 const route = useRoute()
@@ -162,6 +163,10 @@ onMounted(() => {
     <NewsletterSection class="pb-12 pt-12" />
 
     <BreadCrumb :breadcrumb="breadcrumb" class="py-6" />
+  </main>
+
+  <main v-else>
+    <ProductNotFound class="mt-16" />
   </main>
 
   <FooterSection />
