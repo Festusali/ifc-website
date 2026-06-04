@@ -30,6 +30,8 @@ const product = computed(() => {
   return productsStore.getProductBySlug(slug)
 })
 
+const productNotFound = computed(() => !productsStore.loading && !product.value)
+
 // Get related products based on shared categories
 const relatedProducts = computed(() => {
   if (!product.value) {
@@ -165,7 +167,7 @@ onMounted(() => {
     <BreadCrumb :breadcrumb="breadcrumb" class="py-6" />
   </main>
 
-  <main v-else>
+  <main v-else-if="productNotFound">
     <ProductNotFound class="mt-16" />
   </main>
 

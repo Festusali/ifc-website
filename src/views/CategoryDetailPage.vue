@@ -35,9 +35,7 @@ const categoryProducts = computed(() => {
     return []
   }
 
-  return productsStore.products.filter((product) =>
-    product.categoryIds.includes(category.value!.id!),
-  )
+  return productsStore.getProductsByCategory(category.value!.id!)
 })
 
 const categoryProductsRef = computed(() => categoryProducts)

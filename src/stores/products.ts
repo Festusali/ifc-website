@@ -2,23 +2,22 @@ import { productsSchema } from '@/schemas/product'
 import { products as dummyProducts } from '@/data/shop'
 import type { Product } from '@/schemas/product'
 import { defineStore } from 'pinia'
-import { useCategoriesStore } from './categories'
-
-// Check if categories are already loaded, if not, fetch them
-const categoriesStore = useCategoriesStore()
-if (!categoriesStore.categories.length) {
-  categoriesStore.fetchCategories?.()
-}
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
-    // Core data
     products: [] as Product[],
     loading: false,
   }),
 
   getters: {
     totalProducts: (state) => state.products.length,
+    featuredProducts: (state) => state.products.filter((product) => product.featured),
+    bestSellerProducts: (state) => state.products.filter((product) => product.bestSeller),
+    newArrivalProducts: (state) => state.products.filter((product) => product.newArrival),
+    productsByCategory: (state) => {
+      return (categoryId: string) =>
+        state.products.filter((product) => product.categoryIds.includes(categoryId))
+    },
   },
 
   actions: {
