@@ -1,5 +1,11 @@
 import HomePage from '@/views/HomePage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import NProgress from 'nprogress'
+
+// Enable/disable loading spinner icon
+// NProgress.configure({
+//   showSpinner: false,
+// })
 
 /*
 TODO: Basic Routes Before Launch
@@ -80,6 +86,21 @@ const router = createRouter({
       behavior: 'smooth',
     }
   },
+})
+
+// Before each route change, start the progress bar
+router.beforeEach(() => {
+  NProgress.start()
+})
+
+// After each route change, finish the progress bar
+router.afterEach(() => {
+  NProgress.done()
+})
+
+// If there's an error during navigation, also finish the progress bar
+router.onError(() => {
+  NProgress.done()
 })
 
 export default router

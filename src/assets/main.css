@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&family=Poppins:wght@100..900&display=swap");
 
 @import "tailwindcss";
+@import "nprogress/nprogress.css";
 
 /* =========================================
    THEME
@@ -36,6 +37,43 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+/* START Page loading and transition styles */
+/* Progress bar */
+#nprogress .bar {
+  background: var(--color-primary) !important;
+  height: 2px !important;
+}
+
+/* Glow effect */
+#nprogress .peg {
+  box-shadow:
+    0 0 10px var(--color-primary),
+    0 0 5px var(--color-primary) !important;
+}
+
+/* Spinner color */
+#nprogress .spinner-icon {
+  border-top-color: var(--color-primary) !important;
+  border-left-color: var(--color-soft) !important;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
 /* =========================================

@@ -111,57 +111,62 @@ const categoryNotFound = computed(() => !categoriesStore.loading && !category.va
 </script>
 
 <template>
-  <NavBar />
+  <div class="wrapper">
+    <NavBar />
 
-  <main v-if="category">
-    <CategoryShowcase :category="category" />
+    <main v-if="category">
+      <CategoryShowcase :category="category" />
 
-    <BreadCrumb :breadcrumb="breadcrumb" class="py-6" />
+      <BreadCrumb :breadcrumb="breadcrumb" class="py-6" />
 
-    <CatalogLayout>
-      <template #toolbar>
-        <ShopToolbar :products="categoryProductsRef" @toggle-filters="catalogStore.toggleFilters" />
-      </template>
+      <CatalogLayout>
+        <template #toolbar>
+          <ShopToolbar
+            :products="categoryProductsRef"
+            @toggle-filters="catalogStore.toggleFilters"
+          />
+        </template>
 
-      <template #filters>
-        <div class="hidden lg:block w-75 shrink-0">
-          <SidebarFilters :products="computed(() => visibleProducts)" open />
-        </div>
+        <template #filters>
+          <div class="hidden lg:block w-75 shrink-0">
+            <SidebarFilters :products="computed(() => visibleProducts)" open />
+          </div>
 
-        <SidebarFilters
-          :products="computed(() => visibleProducts)"
-          :open="catalogStore.isFiltersOpen"
-          @close="catalogStore.closeFilters"
-        />
-      </template>
+          <SidebarFilters
+            :products="computed(() => visibleProducts)"
+            :open="catalogStore.isFiltersOpen"
+            @close="catalogStore.closeFilters"
+          />
+        </template>
 
-      <ProductGrid :products="visibleProducts" :loading="productsStore.loading" />
+        <ProductGrid :products="visibleProducts" :loading="productsStore.loading" />
 
-      <template #count>
-        <CatalogCount :visible="visibleProducts.length" :total="categoryProducts.length" />
-      </template>
+        <template #count>
+          <CatalogCount :visible="visibleProducts.length" :total="categoryProducts.length" />
+        </template>
 
-      <template #pagination>
-        <LoadMore
-          :has-more="hasMoreProducts"
-          :loading="productsStore.loading"
-          @load-more="catalogStore.loadMoreProducts"
-        />
-      </template>
-    </CatalogLayout>
+        <template #pagination>
+          <LoadMore
+            :has-more="hasMoreProducts"
+            :loading="productsStore.loading"
+            @load-more="catalogStore.loadMoreProducts"
+          />
+        </template>
+      </CatalogLayout>
 
-    <NewsletterSection />
+      <NewsletterSection />
 
-    <BreadCrumb :breadcrumb="breadcrumb" class="py-12" />
-  </main>
+      <BreadCrumb :breadcrumb="breadcrumb" class="py-12" />
+    </main>
 
-  <main v-else-if="categoryNotFound">
-    <section class="container-base py-24 text-center">
-      <h1 class="text-3xl font-semibold">Category Not Found</h1>
+    <main v-else-if="categoryNotFound">
+      <section class="container-base py-24 text-center">
+        <h1 class="text-3xl font-semibold">Category Not Found</h1>
 
-      <p class="mt-4 text-slate-500">The category you requested does not exist.</p>
-    </section>
-  </main>
+        <p class="mt-4 text-slate-500">The category you requested does not exist.</p>
+      </section>
+    </main>
 
-  <FooterSection />
+    <FooterSection />
+  </div>
 </template>

@@ -18,36 +18,38 @@ useSeo({
 </script>
 
 <template>
-  <!-- NavBar -->
-  <NavBar />
+  <div class="wrapper">
+    <!-- NavBar -->
+    <NavBar />
 
-  <!-- Main content -->
-  <main>
-    <!-- Hero Section -->
-    <HeroSection class="pt-15" />
+    <!-- Main content -->
+    <main>
+      <!-- Hero Section -->
+      <HeroSection class="pt-15" />
 
-    <!-- Featured Categories -->
-    <FeaturedCategories />
+      <!-- Featured Categories -->
+      <FeaturedCategories />
 
-    <!-- New Arrivals -->
-    <NewArrivals />
+      <!-- New Arrivals -->
+      <NewArrivals />
 
-    <!-- Promo Banner -->
-    <PromoBanner />
+      <!-- Promo Banner -->
+      <PromoBanner />
 
-    <!-- Best Sellers -->
-    <BestSellers />
+      <!-- Best Sellers -->
+      <BestSellers />
 
-    <!-- Why Choose Us -->
-    <WhyChooseUs />
+      <!-- Why Choose Us -->
+      <WhyChooseUs />
 
-    <!-- Instagram Collection -->
-    <InstagramSection />
+      <!-- Instagram Collection -->
+      <InstagramSection />
 
-    <!-- Subscribe To Newsletter -->
-    <NewsletterSection />
-  </main>
+      <!-- Subscribe To Newsletter -->
+      <NewsletterSection />
+    </main>
 
-  <!-- Footer -->
-  <FooterSection />
+    <!-- Footer -->
+    <FooterSection />
+  </div>
 </template>

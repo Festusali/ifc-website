@@ -60,44 +60,46 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- NavBar -->
-  <NavBar />
+  <div class="wrapper">
+    <!-- NavBar -->
+    <NavBar />
 
-  <!-- Main Content -->
-  <main>
-    <!-- Categories Hero -->
-    <CategoriesHero />
+    <!-- Main Content -->
+    <main>
+      <!-- Categories Hero -->
+      <CategoriesHero />
 
-    <!-- Breadcrumb top -->
-    <BreadCrumb :breadcrumb="breadcrumb" class="bg-white/10 py-6" />
+      <!-- Breadcrumb top -->
+      <BreadCrumb :breadcrumb="breadcrumb" class="bg-white/10 py-6" />
 
-    <!-- Category Grid -->
-    <CategoryGrid
-      class="pb-0"
-      :categories="visibleCategories"
-      :total-count="categoriesStore.categories.length"
-      :loading="categoriesStore.loading"
-      :has-more="hasMoreCategories"
-      @load-more="loadMoreCategories"
-    />
-
-    <!-- Pagination -->
-    <div class="mt-0 pt-0 mb-12">
-      <LoadMore
-        :has-more="hasMoreCategories"
+      <!-- Category Grid -->
+      <CategoryGrid
+        class="pb-0"
+        :categories="visibleCategories"
+        :total-count="categoriesStore.categories.length"
         :loading="categoriesStore.loading"
-        label="Load More Categories"
+        :has-more="hasMoreCategories"
         @load-more="loadMoreCategories"
       />
-    </div>
 
-    <!-- Newsletter -->
-    <NewsletterSection />
+      <!-- Pagination -->
+      <div class="mt-0 pt-0 mb-12">
+        <LoadMore
+          :has-more="hasMoreCategories"
+          :loading="categoriesStore.loading"
+          label="Load More Categories"
+          @load-more="loadMoreCategories"
+        />
+      </div>
 
-    <!-- Breadcrumb top -->
-    <BreadCrumb :breadcrumb="breadcrumb" class="bg-white/10 py-12" />
-  </main>
+      <!-- Newsletter -->
+      <NewsletterSection />
 
-  <!-- Footer -->
-  <FooterSection />
+      <!-- Breadcrumb top -->
+      <BreadCrumb :breadcrumb="breadcrumb" class="bg-white/10 py-12" />
+    </main>
+
+    <!-- Footer -->
+    <FooterSection />
+  </div>
 </template>

@@ -137,39 +137,41 @@ onMounted(() => {
 </script>
 
 <template>
-  <NavBar />
+  <div class="wrapper">
+    <NavBar />
 
-  <main v-if="product">
-    <ProductHero :product="product" />
+    <main v-if="product">
+      <ProductHero :product="product" />
 
-    <BreadCrumb :breadcrumb="breadcrumb" class="py-6" />
+      <BreadCrumb :breadcrumb="breadcrumb" class="py-6" />
 
-    <section class="container-base py-16">
-      <div class="grid gap-12 lg:grid-cols-2">
-        <ProductGallery :product="product" />
+      <section class="container-base py-16">
+        <div class="grid gap-12 lg:grid-cols-2">
+          <ProductGallery :product="product" />
 
-        <ProductInfo :product="product" />
-      </div>
-    </section>
+          <ProductInfo :product="product" />
+        </div>
+      </section>
 
-    <ProductTabs :product="product" />
+      <ProductTabs :product="product" />
 
-    <section class="py-12">
-      <div class="container-base">
-        <SectionHeading title="You May Also Like" class="text-secondary/90" />
+      <section class="py-12">
+        <div class="container-base">
+          <SectionHeading title="You May Also Like" class="text-secondary/90" />
 
-        <ProductGrid :products="relatedProducts" class="pt-6" />
-      </div>
-    </section>
+          <ProductGrid :products="relatedProducts" class="pt-6" />
+        </div>
+      </section>
 
-    <NewsletterSection class="pb-12 pt-12" />
+      <NewsletterSection class="pb-12 pt-12" />
 
-    <BreadCrumb :breadcrumb="breadcrumb" class="py-6" />
-  </main>
+      <BreadCrumb :breadcrumb="breadcrumb" class="py-6" />
+    </main>
 
-  <main v-else-if="productNotFound">
-    <ProductNotFound class="mt-16" />
-  </main>
+    <main v-else-if="productNotFound">
+      <ProductNotFound class="mt-16" />
+    </main>
 
-  <FooterSection />
+    <FooterSection />
+  </div>
 </template>

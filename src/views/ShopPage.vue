@@ -56,59 +56,61 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- Navbar -->
-  <NavBar />
+  <div class="wrapper">
+    <!-- Navbar -->
+    <NavBar />
 
-  <!-- Main content -->
-  <main>
-    <!-- Hero -->
-    <ShopHero />
+    <!-- Main content -->
+    <main>
+      <!-- Hero -->
+      <ShopHero />
 
-    <CatalogLayout>
-      <template #toolbar>
-        <ShopToolbar
-          :products="computed(() => productsStore.products)"
-          @toggle-filters="catalogStore.toggleFilters"
-        />
-      </template>
+      <CatalogLayout>
+        <template #toolbar>
+          <ShopToolbar
+            :products="computed(() => productsStore.products)"
+            @toggle-filters="catalogStore.toggleFilters"
+          />
+        </template>
 
-      <template #filters>
-        <!-- DESKTOP -->
-        <div class="hidden lg:block w-75 shrink-0">
-          <SidebarFilters :products="computed(() => productsStore.products)" open />
-        </div>
+        <template #filters>
+          <!-- DESKTOP -->
+          <div class="hidden lg:block w-75 shrink-0">
+            <SidebarFilters :products="computed(() => productsStore.products)" open />
+          </div>
 
-        <!-- MOBILE -->
-        <SidebarFilters
-          :products="computed(() => productsStore.products)"
-          :open="catalogStore.isFiltersOpen"
-          @close="catalogStore.closeFilters"
-        />
-      </template>
+          <!-- MOBILE -->
+          <SidebarFilters
+            :products="computed(() => productsStore.products)"
+            :open="catalogStore.isFiltersOpen"
+            @close="catalogStore.closeFilters"
+          />
+        </template>
 
-      <ProductGrid :products="visibleProducts" :loading="productsStore.loading" />
+        <ProductGrid :products="visibleProducts" :loading="productsStore.loading" />
 
-      <!-- Catalog count -->
-      <template #count>
-        <CatalogCount :visible="visibleProducts.length" :total="productsStore.totalProducts" />
-      </template>
+        <!-- Catalog count -->
+        <template #count>
+          <CatalogCount :visible="visibleProducts.length" :total="productsStore.totalProducts" />
+        </template>
 
-      <!-- Load more -->
-      <template #pagination>
-        <LoadMore
-          :loading="productsStore.loading"
-          :hasMore="hasMoreProducts"
-          @load-more="catalogStore.loadMoreProducts"
-        />
-      </template>
-    </CatalogLayout>
+        <!-- Load more -->
+        <template #pagination>
+          <LoadMore
+            :loading="productsStore.loading"
+            :hasMore="hasMoreProducts"
+            @load-more="catalogStore.loadMoreProducts"
+          />
+        </template>
+      </CatalogLayout>
 
-    <!-- Newsletter -->
-    <NewsletterSection class="pb-12" />
+      <!-- Newsletter -->
+      <NewsletterSection class="pb-12" />
 
-    <BreadCrumb :breadcrumb="breadcrumb" class="bg-white/10 py-12" />
-  </main>
+      <BreadCrumb :breadcrumb="breadcrumb" class="bg-white/10 py-12" />
+    </main>
 
-  <!-- Footer -->
-  <FooterSection />
+    <!-- Footer -->
+    <FooterSection />
+  </div>
 </template>
